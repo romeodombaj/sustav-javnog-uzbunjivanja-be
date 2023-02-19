@@ -6,13 +6,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.URI;
 import java.util.List;
 
 @SpringBootApplication
 @RestController
+@RequestMapping("/api")
+@CrossOrigin
 public class SustavJavnogUzbunjivanjaBeApplication {
 
 	private final SirenRepository sirenRepository;
@@ -25,11 +30,17 @@ public class SustavJavnogUzbunjivanjaBeApplication {
 		SpringApplication.run(SustavJavnogUzbunjivanjaBeApplication.class, args);
 	}
 
-	@GetMapping("/getting")
+	@GetMapping("/groups")
 	public List<Siren> getSiren(){
 		System.out.println("jelo " + sirenRepository.findAll());
 		return sirenRepository.findAll();
 	}
+
+	/*@GetMapping("/getting")
+	public List<Siren> getSiren(){
+		System.out.println("jelo " + sirenRepository.findAll());
+		return new URI("api/group") sirenRepository.findAll();
+	}*/
 
 
 }
