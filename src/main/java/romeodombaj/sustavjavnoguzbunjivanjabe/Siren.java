@@ -10,24 +10,24 @@ public class Siren {
     private int id;
     private String name;
     private String state;
-    private int soundType;
-    private int activity;
+    private String sound;
+    private boolean activity;
 
     protected Siren() {}
 
-    public Siren(int id, String name, String state, int soundType, int activity) {
+    public Siren(int id, String name, String state, String sound, boolean activity) {
         this.id = id;
         this.name = name;
         this.state = state;
-        this.soundType = soundType;
+        this.sound = sound;
         this.activity = activity;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "Siren[id=%d, name='%s', state='%s', soundType=%d, activity=%d]",
-                id, name, state, soundType, activity);
+                "Siren[id=%d, name='%s', state='%s', sound='%s', activity=%b]",
+                id, name, state, sound, activity);
     }
 
     public long getId() {
@@ -42,11 +42,31 @@ public class Siren {
         return state;
     }
 
-    public int getSoundType() {
-        return soundType;
+    public String getSound() {
+        return sound;
     }
 
-    public int getActivity() {
+    public boolean getActivity() {
         return activity;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setSound(String sound) {
+        this.sound = sound;
+    }
+
+    public void setActivity(boolean activity) {
+        this.activity = activity;
     }
 }

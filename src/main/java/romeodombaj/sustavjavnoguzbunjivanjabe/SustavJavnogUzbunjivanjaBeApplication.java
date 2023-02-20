@@ -1,18 +1,13 @@
 package romeodombaj.sustavjavnoguzbunjivanjabe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootApplication
 @RestController
@@ -22,17 +17,20 @@ public class SustavJavnogUzbunjivanjaBeApplication {
 
 	private final SirenRepository sirenRepository;
 
-	public SustavJavnogUzbunjivanjaBeApplication(SirenRepository sirenRepository){
+	@Autowired
+	private final SirenService sirenService;
+
+	public SustavJavnogUzbunjivanjaBeApplication(SirenRepository sirenRepository, SirenService sirenService){
 		this.sirenRepository = sirenRepository;
+		this.sirenService = sirenService;
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SustavJavnogUzbunjivanjaBeApplication.class, args);
 	}
 
-	@GetMapping("/groups")
+	@GetMapping("/sirenInfo")
 	public List<Siren> getSiren(){
-		System.out.println("jelo " + sirenRepository.findAll());
 		return sirenRepository.findAll();
 	}
 
@@ -41,6 +39,25 @@ public class SustavJavnogUzbunjivanjaBeApplication {
 		System.out.println("jelo " + sirenRepository.findAll());
 		return new URI("api/group") sirenRepository.findAll();
 	}*/
+
+	@PostMapping("/sirenInfo/add")
+	public String add(@RequestBody Siren siren)
+	{
+		sirenService.saveSiren(siren);
+		return "Saved";
+	}
+
+	@PutMapping("/sirenInfo/put")
+	public String put(@RequestBody Siren siren)
+	{
+		sirenService.saveSiren(siren);
+		return "PUT";
+	}
+
+	@PatchMapping("/sirenInfo/{id}")
+	public Siren updateSirenAttributes(@PathVariable int id,@RequestBody Map<String, Object> attributes){
+		return sirenService.updateSirenByAttribute(id, attributes);
+	}
 
 
 }
