@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 public class Siren {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String state;
